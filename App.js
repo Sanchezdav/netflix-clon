@@ -53,24 +53,13 @@ export default class App extends Component<{}> {
           isOpen={ this.state.isOpen }
           onChange={ (isOpen) => this.updateMenu(isOpen) }
         >
-          <Header toggle={ this.toggle.bind(this) } />
-          <Slide />
-          <List />
+          <View style={styles.container}>
+            <Header toggle={ this.toggle.bind(this) } />
+            <Slide />
+            <List />
+          </View>
         </SideMenu>
       </View>
-
-
-      // <View style={styles.container}>
-      //   <Text style={styles.welcome}>
-      //     Welcome to React Native!
-      //   </Text>
-      //   <Text style={styles.instructions}>
-      //     To get started, edit App.js
-      //   </Text>
-      //   <Text style={styles.instructions}>
-      //     {instructions}
-      //   </Text>
-      // </View>
     );
   }
 }
