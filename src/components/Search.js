@@ -85,6 +85,7 @@ class Search extends Component {
   }
 
   render() {
+    const { goBack } = this.props.navigation;
     return(
       <View style={ styles.container }>
         <View style={ styles.header }>
@@ -113,7 +114,7 @@ class Search extends Component {
             />
           </TouchableWithoutFeedback>
           : null }
-          <TouchableWithoutFeedback style={ styles.cancelButton }>
+          <TouchableWithoutFeedback style={ styles.cancelButton } onPress={ () => goBack() }>
             <View style={ styles.cancelButtonContainer }>
               <Text style={ styles.cancelButtonText }>Cancel</Text>
             </View>
