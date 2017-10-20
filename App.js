@@ -46,6 +46,7 @@ export default class App extends Component<{}> {
   }
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <SideMenu
@@ -54,7 +55,7 @@ export default class App extends Component<{}> {
           onChange={ (isOpen) => this.updateMenu(isOpen) }
         >
           <View style={styles.container}>
-            <Header toggle={ this.toggle.bind(this) } />
+            <Header toggle={ this.toggle.bind(this) } navigation={ navigation } />
             <Slide />
             <List />
           </View>

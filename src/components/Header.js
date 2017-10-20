@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {
   Text,
   View,
@@ -9,15 +9,22 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-const Header = props => (
-  <View style={ styles.container }>
-    <TouchableWithoutFeedback onPress={ () => props.toggle() }>
-      <Icon name="bars" color="white" size={25} />
-    </TouchableWithoutFeedback>
-    <Image style={ styles.logo } source={ require('../images/Netflix-logo.png') } />
-    <Icon name="search" color="white" size={25} />
-  </View>
-)
+class Header extends Component {
+  render() {
+    const { navigate } = this.props.navigation;
+    return(
+      <View style={ styles.container }>
+        <TouchableWithoutFeedback onPress={ () => this.props.toggle() }>
+          <Icon name="bars" color="white" size={25} />
+        </TouchableWithoutFeedback>
+        <Image style={ styles.logo } source={ require('../images/Netflix-logo.png') } />
+        <TouchableWithoutFeedback onPress={ () => navigate('Search') }>
+          <Icon name="search" color="white" size={25} />
+        </TouchableWithoutFeedback>
+      </View>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
   container: {

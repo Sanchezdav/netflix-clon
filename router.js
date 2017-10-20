@@ -1,4 +1,4 @@
-import {StackNavigator} from 'react-navigation'
+import { StackNavigator } from 'react-navigation'
 
 import App from './App'
 import Search from './src/components/Search'
@@ -12,7 +12,7 @@ const Router = StackNavigator({
   }
 },{
   headerMode: 'none',
-  initialRouteName: 'Search'
+  initialRouteName: 'Home'
 });
 
 export default Router
