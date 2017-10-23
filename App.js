@@ -9,7 +9,8 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  ScrollView
 } from 'react-native';
 import SideMenu from 'react-native-side-menu'
 
@@ -54,11 +55,13 @@ export default class App extends Component<{}> {
           isOpen={ this.state.isOpen }
           onChange={ (isOpen) => this.updateMenu(isOpen) }
         >
-          <View style={styles.container}>
+          <View>
             <Header toggle={ this.toggle.bind(this) } navigation={ navigation } />
+          </View>
+          <ScrollView style={styles.container}>
             <Slide />
             <List />
-          </View>
+          </ScrollView>
         </SideMenu>
       </View>
     );
