@@ -2,6 +2,7 @@ import { StackNavigator } from 'react-navigation'
 
 import App from './App'
 import Search from './src/components/Search'
+import Details from './src/components/Details'
 
 const Router = StackNavigator({
   Home: {
@@ -9,6 +10,9 @@ const Router = StackNavigator({
   },
   Search: {
     screen: Search,
+  },
+  Details: {
+    screen: Details,
   }
 },{
   headerMode: 'none',

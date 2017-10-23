@@ -60,7 +60,7 @@ export default class App extends Component<{}> {
           </View>
           <ScrollView style={styles.container}>
             <Slide />
-            <List />
+            <List navigation={ navigation } />
           </ScrollView>
         </SideMenu>
       </View>

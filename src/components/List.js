@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   FlatList,
-  Image
+  Image,
+  TouchableWithoutFeedback
 } from 'react-native'
 
 const show_first = [
@@ -416,9 +417,15 @@ const show_second = [
 
 class List extends Component {
 
+  goDetails(item) {
+    this.props.navigation.navigate('Details', { ...item });
+  }
+
   _renderItem(item) {
     return(
-      <Image style={{ width: 120, height: 180 }} source={{ uri: item.image }}/>
+      <TouchableWithoutFeedback onPress={ () => this.goDetails(item) }>
+        <Image style={{ width: 120, height: 180 }} source={{ uri: item.image }}/>
+      </TouchableWithoutFeedback>
     )
   }
 
