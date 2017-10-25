@@ -20,7 +20,7 @@ class TabsEpisodes extends Component {
 
   _handleIndexChange = index => this.setState({ index });
 
-  _renderHeader = props => <TabBar {...props} />;
+  _renderHeader = props => <TabBar style={ styles.tabs } indicatorStyle={ styles.indicator } {...props} />;
 
   _renderScene = SceneMap({
     '1': Episodes,
@@ -42,7 +42,17 @@ class TabsEpisodes extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    borderTopWidth: 1,
+    borderColor: 'black'
+  },
+  tabs: {
+    backgroundColor: 'transparent'
+  },
+  indicator: {
+    backgroundColor: 'red',
+    top: 0,
+    height: 4
   }
 })
 
