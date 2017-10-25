@@ -15,6 +15,7 @@ const Router = StackNavigator({
     screen: Details,
   }
 },{
+  mode: 'modal',
   headerMode: 'none',
   initialRouteName: 'Home'
 });
