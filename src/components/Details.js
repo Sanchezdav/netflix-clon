@@ -12,6 +12,7 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import IonIcons from 'react-native-vector-icons/Ionicons'
+import TextGradient from 'react-native-linear-gradient'
 
 import TabsEpisodes from './TabsEpisodes'
 
@@ -35,6 +36,9 @@ class Details extends Component {
                   style={ styles.iconPlay }
                 />
               </TouchableWithoutFeedback>
+            </View>
+            <View style={ styles.nameContainer }>
+              <Text style={ [styles.text, styles.titleShow] }>{ params.name }</Text>
             </View>
           </ImageBackground>
           <View style={ styles.descriptionContainer }>
@@ -69,7 +73,7 @@ class Details extends Component {
               </View>
             </View>
           </View>
-          <TabsEpisodes />
+          <TabsEpisodes data={ params.details.episodes } />
       </ScrollView>
     )
   }
@@ -79,6 +83,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#181818'
+  },
+  nameContainer: {
+    backgroundColor: 'transparent'
+  },
+  titleShow: {
+    fontSize: 35,
+    paddingLeft: 10,
+    marginBottom: 10,
+    color: 'white'
   },
   thumbnail: {
     width: width,

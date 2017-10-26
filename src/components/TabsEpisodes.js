@@ -22,17 +22,21 @@ class TabsEpisodes extends Component {
 
   _renderHeader = props => <TabBar style={ styles.tabs } indicatorStyle={ styles.indicator } {...props} />;
 
-  _renderScene = SceneMap({
-    '1': Episodes,
-    '2': Trailers,
-  })
+  _renderScene = function(route){
+    const scenes = {
+      '1': <Episodes episodes={ this.props.data }/>,
+      '2': <Trailers />
+    }
+
+    return scenes[route.route.key]
+  }
 
   render() {
     return(
       <TabViewAnimated
         style={ styles.container }
         navigationState={ this.state }
-        renderScene={ this._renderScene }
+        renderScene={ this._renderScene.bind(this) }
         renderHeader={ this._renderHeader }
         onIndexChange={ this._handleIndexChange }
       />
@@ -43,7 +47,7 @@ class TabsEpisodes extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderTopWidth: 1,
+    borderTopWidth: 2,
     borderColor: 'black'
   },
   tabs: {
