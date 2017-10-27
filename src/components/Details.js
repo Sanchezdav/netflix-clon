@@ -8,7 +8,8 @@ import {
   TouchableHighlight,
   TouchableWithoutFeedback,
   ScrollView,
-  Dimensions
+  Dimensions,
+  Share
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import IonIcons from 'react-native-vector-icons/Ionicons'
@@ -27,6 +28,21 @@ class Details extends Component {
   openVideo(title) {
     Orientation.lockToLandscape()
     this.props.navigation.navigate('Video', { title: title })
+  }
+
+  onShare() {
+    Share.share({
+      title: 'Designated Survivor',
+      uri: 'www.youtube.com',
+      message: 'Awesome TV Show'
+    }, {
+      // android
+      dialogTitle: 'Share this awesome content',
+      //ios
+      excludeActivityTypes: [
+        'com.apple.UIKit.activity.PostToTwitter'
+      ]
+    })
   }
 
   render() {
@@ -75,15 +91,17 @@ class Details extends Component {
                 />
                 <Text style={ styles.text }>My List</Text>
               </View>
-              <View style={ styles.myShareIcon }>
-                <Icon
-                  name="share-alt"
-                  style={ styles.shareIcon }
-                  color="grey"
-                  size={25}
-                />
-                <Text style={ styles.text }>Share</Text>
-              </View>
+              <TouchableHighlight onPress={ this.onShare }>
+                <View style={ styles.myShareIcon }>
+                  <Icon
+                    name="share-alt"
+                    style={ styles.shareIcon }
+                    color="grey"
+                    size={25}
+                  />
+                  <Text style={ styles.text }>Share</Text>
+                </View>
+              </TouchableHighlight>
             </View>
           </View>
           <TabsEpisodes data={ params.details.episodes } />
