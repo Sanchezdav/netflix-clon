@@ -7,6 +7,7 @@ import {
   Image,
   TouchableWithoutFeedback
 } from 'react-native'
+import Orientation from 'react-native-orientation'
 
 const show_first = [
   {
@@ -416,6 +417,10 @@ const show_second = [
 ]
 
 class List extends Component {
+
+  componentWillMount() {
+    Orientation.lockToPortrait()
+  }
 
   goDetails(item) {
     this.props.navigation.navigate('Details', { ...item });

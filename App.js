@@ -13,6 +13,7 @@ import {
   ScrollView
 } from 'react-native';
 import SideMenu from 'react-native-side-menu'
+import Orientation from 'react-native-orientation'
 
 import List from './src/components/List'
 import Slide from './src/components/Slider'
@@ -34,6 +35,10 @@ export default class App extends Component<{}> {
     this.state = {
       isOpen: false
     }
+  }
+
+  componentWillMount() {
+    Orientation.lockToPortrait()
   }
 
   toggle() {

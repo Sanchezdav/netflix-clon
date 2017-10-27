@@ -13,12 +13,22 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome'
 import IonIcons from 'react-native-vector-icons/Ionicons'
 import TextGradient from 'react-native-linear-gradient'
+import Orientation from 'react-native-orientation'
 
 import TabsEpisodes from './TabsEpisodes'
 
 const { width, height } = Dimensions.get('window')
 
 class Details extends Component {
+  componentWillMount() {
+    Orientation.lockToPortrait()
+  }
+
+  openVideo(title) {
+    Orientation.lockToLandscape()
+    this.props.navigation.navigate('Video', { title: title })
+  }
+
   render() {
     const { params } = this.props.navigation.state;
     return(
@@ -28,7 +38,10 @@ class Details extends Component {
           style={ styles.thumbnail }
           >
             <View style={ styles.buttonPlay }>
-              <TouchableWithoutFeedback style={ styles.iconContainer } onPress={ null }>
+              <TouchableWithoutFeedback
+                style={ styles.iconContainer }
+                onPress={ () => this.openVideo(params.name) }
+              >
                 <Icon
                   name="play-circle"
                   size={80}
