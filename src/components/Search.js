@@ -12,40 +12,9 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-const { width, height } = Dimensions.get('window')
+import { getAll } from '../api/api'
 
-const show_first = [
-  {
-    key: 1,
-    name: 'Suits',
-    image: 'https://static.tvmaze.com/uploads/images/medium_portrait/0/2432.jpg'
-  },
-  {
-    key: 2,
-    name: 'Vikings',
-    image: 'https://static.tvmaze.com/uploads/images/medium_portrait/0/628.jpg'
-  },
-  {
-    key: 3,
-    name: 'Big Bang Theory',
-    image: 'https://static.tvmaze.com/uploads/images/medium_portrait/78/195988.jpg'
-  },
-  {
-    key: 4,
-    name: 'Daredevil',
-    image: 'https://static.tvmaze.com/uploads/images/medium_portrait/83/209955.jpg'
-  },
-  {
-    key: 5,
-    name: 'Jessica Jones',
-    image: 'https://static.tvmaze.com/uploads/images/medium_portrait/101/253490.jpg'
-  },
-  {
-    key: 6,
-    name: 'Luke Cage',
-    image: 'https://static.tvmaze.com/uploads/images/medium_portrait/90/225030.jpg'
-  }
-]
+const { width, height } = Dimensions.get('window')
 
 class Search extends Component {
 
@@ -59,7 +28,8 @@ class Search extends Component {
   }
 
   filter(text) {
-    const newData = show_first.filter(function(item) {
+    const data = getAll()
+    const newData = data.filter(function(item) {
       const itemData = item.name.toUpperCase()
       const textData = text.toUpperCase()
       return itemData.indexOf(textData) > -1
