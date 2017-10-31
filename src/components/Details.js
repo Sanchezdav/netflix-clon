@@ -9,13 +9,13 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
   Dimensions,
-  Share
+  Share,
+  Animated
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import IonIcons from 'react-native-vector-icons/Ionicons'
 import TextGradient from 'react-native-linear-gradient'
 import Orientation from 'react-native-orientation'
-import * as Animatable from 'react-native-animatable'
 
 import TabsEpisodes from './TabsEpisodes'
 
@@ -27,9 +27,9 @@ class Details extends Component {
     super(props)
 
     this.state = {
-      measures: 0,
-      header: false,
-      animation: ''
+      measuresTitle: 0,
+      measuresSeason: 0,
+      scrollY: new Animated.Value(0)
     }
   }
 
@@ -57,28 +57,45 @@ class Details extends Component {
     })
   }
 
-  handleScroll(event) {
-    if(event.nativeEvent.contentOffset.y > this.state.measures) {
-      this.setState({
-        animation: 'slideInDown',
-        header: true
-      })
-    } else {
-      this.setState({
-        header: false
-      })
-    }
-  }
-
   render() {
+    const headerNameToggle = this.state.scrollY.interpolate({
+      inputRange: [this.state.measuresTitle, this.state.measuresTitle + 1],
+      outputRange: [0, 1]
+    })
+    const headerSeasonHide = this.state.scrollY.interpolate({
+      inputRange: [
+        this.state.measuresSeason - 1,
+        this.state.measuresSeason,
+        this.state.measuresSeason + 1
+      ],
+      outputRange: [-width, 0, 0]
+    })
+    const headerSeasonToggle = this.state.scrollY.interpolate({
+      inputRange: [this.state.measuresSeason, this.state.measuresSeason + 1],
+      outputRange: [0, 1]
+    })
     const { navigate } = this.props.navigation
     const { params } = this.props.navigation.state;
     return(
       <View style={{ flex: 1 }}>
-        {this.state.header ? <Animatable.View animation={ this.state.animation } style={ styles.header }>
+        <Animated.View style={ [styles.header, { opacity: headerNameToggle }] }>
           <Text style={ styles.headerText }>{ params.name }</Text>
-        </Animatable.View> : null}
-        <ScrollView onScroll={ this.handleScroll.bind(this) } style={ styles.container }>
+        </Animated.View>
+        <Animated.View style={ [styles.header,
+            { opacity: headerSeasonToggle, transform: [{translateY: 0}, {translateX: headerSeasonHide}] }] }
+        >
+          <Text style={ styles.headerText }>Season 1</Text>
+        </Animated.View>
+        <Animated.ScrollView
+          scrollEventThrottle={ 1 }
+          onScroll={
+            Animated.event(
+              [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
+              { useNativeDriver: true }
+            )
+          }
+          style={ styles.container }
+        >
           <ImageBackground
             source={{ uri: params.details.thumbnail }}
             style={ styles.thumbnail }
@@ -99,7 +116,7 @@ class Details extends Component {
               <View style={ styles.nameContainer }
                 onLayout={ ({nativeEvent}) => {
                   this.setState({
-                    measures: nativeEvent.layout.y
+                    measuresTitle: nativeEvent.layout.y
                   })
                 } }
               >
@@ -140,8 +157,16 @@ class Details extends Component {
                 </TouchableHighlight>
               </View>
             </View>
-            <TabsEpisodes data={ params.details.episodes } />
-        </ScrollView>
+            <View
+              onLayout={ ({nativeEvent}) => {
+                this.setState({
+                  measuresSeason: nativeEvent.layout.y + 10
+                })
+              } }
+            >
+              <TabsEpisodes data={ params.details.episodes } />
+            </View>
+        </Animated.ScrollView>
       </View>
     )
   }
