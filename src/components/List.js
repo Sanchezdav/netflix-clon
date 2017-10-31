@@ -17,13 +17,10 @@ class List extends Component {
     Orientation.lockToPortrait()
   }
 
-  goDetails(item) {
-    this.props.navigation.navigate('Details', { ...item });
-  }
-
   _renderItem(item) {
+    const { navigate } = this.props.navigation
     return(
-      <TouchableWithoutFeedback onPress={ () => this.goDetails(item) }>
+      <TouchableWithoutFeedback onPress={ () => navigate('Details', { ...item }) }>
         <Image style={{ width: 120, height: 180 }} source={{ uri: item.image }}/>
       </TouchableWithoutFeedback>
     )

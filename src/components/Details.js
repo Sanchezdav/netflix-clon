@@ -71,6 +71,7 @@ class Details extends Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation
     const { params } = this.props.navigation.state;
     return(
       <View style={{ flex: 1 }}>
@@ -85,7 +86,7 @@ class Details extends Component {
               <View style={ styles.buttonPlay }>
                 <TouchableWithoutFeedback
                   style={ styles.iconContainer }
-                  onPress={ () => this.openVideo(params.name) }
+                  onPress={ () => navigate('Video', { title: params.name }) }
                 >
                   <Icon
                     name="play-circle"

@@ -49,8 +49,11 @@ class Search extends Component {
   }
 
   _renderItem(item) {
+    const { navigate } = this.props.navigation
     return(
-      <Image key={ item.key } style={ styles.image } source={{ uri: item.image }} />
+      <TouchableWithoutFeedback onPress={ () => navigate('Details', { ...item }) }>
+        <Image style={{ width: 120, height: 180 }} source={{ uri: item.image }}/>
+      </TouchableWithoutFeedback>
     )
   }
 
